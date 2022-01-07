@@ -3,7 +3,6 @@ import useSWR from 'swr'
 import Layout from '../../components/Layout'
 import ScoreCard from '../../components/ScoreCard'
 
-
 const Profile = () => {
   const fetcher = async url => {
     const response = await fetch(url, {
@@ -32,25 +31,18 @@ const Profile = () => {
           error.message
         ) : (
           <>
-            {
-              data
-                ? <span className="username">{data.name}</span>
-                : null
-            }
-            {
-              data
-                ? data.scores.map(score => (
-                  <ScoreCard
-                    key={score.id}
-                    id={score.id}
-                    totalScore={score.total_score}
-                    playedAt={score.played_at}
-                    userId={score.user_id}
-                    userName={score.user_name}
-                  />
-                ))
-                : null
-            }
+            {data && (<span className="username">{data.name}</span>)}
+            {data && (
+              data.scores.map(score => (
+                <ScoreCard
+                  key={score.id}
+                  id={score.id}
+                  totalScore={score.total_score}
+                  playedAt={score.played_at}
+                  userId={score.user_id}
+                  userName={score.user_name}
+                />
+              )))}
           </>
         )}
       </>
